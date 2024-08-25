@@ -1,6 +1,55 @@
-bt_navigator:
+amcl:
   ros__parameters:
     use_sim_time: False
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_footprint"
+    beam_skip_distance: 0.5
+    beam_skip_error_threshold: 0.9
+    beam_skip_threshold: 0.3
+    do_beamskip: false
+    global_frame_id: "map"
+    lambda_short: 0.1
+    laser_likelihood_max_dist: 2.0
+    laser_max_range: -1.0
+    laser_min_range: -1.0
+    laser_model_type: "likelihood_field"
+    max_beams: 60
+    max_particles: 2000
+    min_particles: 100
+    odom_frame_id: "odom"
+    pf_err: 0.10
+    pf_z: 0.50
+    recovery_alpha_fast: 0.0
+    recovery_alpha_slow: 0.0
+    resample_interval: 1
+    robot_model_type: "omnidirectional"
+    save_pose_rate: 0.5
+    sigma_hit: 0.2
+    tf_broadcast: true
+    transform_tolerance: 1.0
+    update_min_a: 0.2
+    update_min_d: 0.25
+    z_hit: 0.5
+    z_max: 0.05
+    z_rand: 0.5
+    z_short: 0.05
+    scan_topic: scan
+
+amcl_map_client:
+  ros__parameters:
+    use_sim_time: False
+
+amcl_rclcpp_node:
+  ros__parameters:
+    use_sim_time: False
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: True
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
@@ -34,14 +83,14 @@ bt_navigator:
 
 bt_navigator_rclcpp_node:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True
 
 controller_server:
   ros__parameters:
-    use_sim_time: False
-    controller_frequency: 50.0
+    use_sim_time: True
+    controller_frequency: 10.0
     min_x_velocity_threshold: 0.001
-    min_y_velocity_threshold: 0.5
+    min_y_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
     progress_checker_plugin: "progress_checker"
     goal_checker_plugin: "goal_checker"
@@ -55,41 +104,39 @@ controller_server:
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.6
+      yaw_goal_tolerance: 100.0
       stateful: True
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: True
-      min_vel_x: 0.0
-      min_vel_y: 0.0
-      max_vel_x: 0.26
-      max_vel_y: 0.0
-      max_vel_theta: 1.0
-      min_speed_xy: 0.0
-      max_speed_xy: 0.26
-      min_speed_theta: 0.0
-      # Add high threshold velocity for turtlebot 3 issue.
-      # https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/75
+      min_vel_x: -0.4
+      min_vel_y: -0.2
+      max_vel_x: 0.4
+      max_vel_y: 0.6
+      max_vel_theta: 0.8
+      min_speed_xy: -0.4
+      max_speed_xy: 0.4
+      min_speed_theta: -0.8
       acc_lim_x: 2.5
-      acc_lim_y: 0.0
+      acc_lim_y: 2.5
       acc_lim_theta: 3.2
       decel_lim_x: -2.5
-      decel_lim_y: 0.0
+      decel_lim_y: -2.5
       decel_lim_theta: -3.2
       vx_samples: 20
-      vy_samples: 5
+      vy_samples: 20
       vtheta_samples: 20
       sim_time: 1.7
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.1
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      critics: ["RotateToGoal", "PreferForward", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist","Twirling"]
       BaseObstacle.scale: 0.02
       PathAlign.scale: 32.0
       PathAlign.forward_point_distance: 0.1
@@ -100,10 +147,14 @@ controller_server:
       RotateToGoal.scale: 32.0
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
+      PreferForward.penalty: 0.0
+      PreferForward.strafe_x: 5.0
+      PreferForward.strafe_theta: 50.0
+      Twirling.scale: 0.0
 
 controller_server_rclcpp_node:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True
 
 local_costmap:
   local_costmap:
@@ -112,7 +163,7 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
-      use_sim_time: False
+      use_sim_time: True
       rolling_window: true
       width: 3
       height: 3
@@ -144,10 +195,10 @@ local_costmap:
       always_send_full_costmap: True
   local_costmap_client:
     ros__parameters:
-      use_sim_time: False
+      use_sim_time: True
   local_costmap_rclcpp_node:
     ros__parameters:
-      use_sim_time: False
+      use_sim_time: True
 
 global_costmap:
   global_costmap:
@@ -156,7 +207,7 @@ global_costmap:
       publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_link
-      use_sim_time: False
+      use_sim_time: True
       robot_radius: 0.22
       resolution: 0.05
       track_unknown_space: true
@@ -181,19 +232,19 @@ global_costmap:
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:
-      use_sim_time: False
+      use_sim_time: True
   global_costmap_rclcpp_node:
     ros__parameters:
-      use_sim_time: False
+      use_sim_time: True
 
 map_server:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True
     yaml_filename: "turtlebot3_world.yaml"
 
 map_saver:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True
     save_map_timeout: 5000
     free_thresh_default: 0.25
     occupied_thresh_default: 0.65
@@ -202,7 +253,7 @@ map_saver:
 planner_server:
   ros__parameters:
     expected_planner_frequency: 20.0
-    use_sim_time: False
+    use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
@@ -212,7 +263,7 @@ planner_server:
 
 planner_server_rclcpp_node:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True
 
 recoveries_server:
   ros__parameters:
@@ -229,7 +280,7 @@ recoveries_server:
     global_frame: odom
     robot_base_frame: base_link
     transform_timeout: 0.1
-    use_sim_time: False
+    use_sim_time: True
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.4
@@ -237,4 +288,4 @@ recoveries_server:
 
 robot_state_publisher:
   ros__parameters:
-    use_sim_time: False
+    use_sim_time: True

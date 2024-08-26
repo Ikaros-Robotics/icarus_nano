@@ -9,7 +9,7 @@ To run in Sim you need 2 terminals:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Terminal 1: ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=true
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py use_sim_time:=true
+&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=true
 
 
 \
@@ -19,7 +19,7 @@ To run on Hardware you need 3 terminals:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Terminal 1: ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=false
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py use_sim_time:=false
+&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=false
 
 &nbsp;&nbsp;&nbsp;&nbsp;Terminal 3: sudo chmod 777 /dev/ttyUSB0 
   

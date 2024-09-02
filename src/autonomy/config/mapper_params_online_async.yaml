@@ -14,9 +14,9 @@ slam_toolbox:
     # ROS Parameters
     odom_frame: odom
     map_frame: map
-    base_frame: chassis
+    base_frame: chassis #should be set to the parent of the lidar_link
     scan_topic: /scan
-    mode: mapping #localization
+    mode: mapping   #options = mapping or localization
 
     # if you'd like to immediately start continuing a map at a given pose
     # or at the dock, but they are mutually exclusive, if pose is given
@@ -41,8 +41,8 @@ slam_toolbox:
     # General Parameters
     use_scan_matching: true
     use_scan_barycenter: true
-    minimum_travel_distance: 0.01
-    minimum_travel_heading: 0.01
+    minimum_travel_distance: 0.01   #smaller number = scan matching occurs more often
+    minimum_travel_heading: 0.01    #smaller number = scan matching occurs more often
     scan_buffer_size: 10
     scan_buffer_maximum_scan_distance: 5.0
     link_match_minimum_response_fine: 0.1  
@@ -68,7 +68,7 @@ slam_toolbox:
     distance_variance_penalty: 1.0      
     angle_variance_penalty: 0.8    
 
-    fine_search_angle_offset: 0.00149     
+    fine_search_angle_offset: 0.00149    #smaller value = more precise alignment of scans
     coarse_search_angle_offset: 0.149   
     coarse_angle_resolution: 0.0549        
     minimum_angle_penalty: 5.0

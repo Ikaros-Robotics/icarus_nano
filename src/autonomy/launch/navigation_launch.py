@@ -26,7 +26,7 @@ from nav2_common.launch import RewrittenYaml
 def generate_launch_description():
     # Get the launch directory
     bringup_dir = get_package_share_directory('autonomy')
-    params_file = os.path.join(get_package_share_directory(bringup_dir), 'config', 'nav2_params.yaml')
+    params_file = os.path.join(bringup_dir, 'config', 'nav2_params.yaml')
 
     namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')

@@ -1,26 +1,53 @@
-Initial run:
+**Initial run:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;sudo apt install ros-foxy-slam-toolbox ros-foxy-navigation2 ros-foxy-nav2-bringup
+    sudo apt install ros-foxy-slam-toolbox ros-foxy-navigation2 ros-foxy-nav2-bringup
 
-\
+>Follow LiDAR Setup on https://github.com/Slamtec/rplidar_ros/tree/ros2-devel (Make sure to add the udev rule for the LiDAR)
 
+<br />
+<br />
 
-To run in Sim you need 2 terminals:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 1: ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=true
-
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=true
-
-
-\
+**To run Perception Stack in Sim**
+    
+    ros2 launch autonomy autonomy_sim_launch.py
 
 
-To run on Hardware you need 3 terminals:
+**To run Perception Stack on Robot**
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 1: ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=false
+    ros2 launch autonomy autonomy_launch.py
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 2: ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=false
+<br />
+<br />
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 3: sudo chmod 777 /dev/ttyUSB0 
-  
-&nbsp;&nbsp;&nbsp;&nbsp;Terminal 3: ros2 launch rplidar_ros rplidar_a1_launch.py
+
+**To launch only SLAM Toolbox:**
+
+>In Sim
+    
+    ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=true
+
+>On Robot
+
+    ros2 launch slam_toolbox online_async_launch.py params_file:=./src/autonomy/config/mapper_params_online_async.yaml use_sim_time:=false
+
+<br />
+<br />
+
+
+**To launch only Nav2**
+
+>In Sim
+
+    ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=true
+
+>On Robot
+
+    ros2 launch nav2_bringup navigation_launch.py params_file:=./src/autonomy/config/nav2_params.yaml use_sim_time:=false
+
+<br />
+<br />
+
+
+**To launch only the Physical LiDAR**
+    
+    ros2 launch rplidar_ros rplidar_a1_launch.py

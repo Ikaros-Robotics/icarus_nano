@@ -1,4 +1,4 @@
-**Initial run:**
+**Initial run**
 
     sudo apt install ros-foxy-slam-toolbox ros-foxy-navigation2 ros-foxy-nav2-bringup
 
@@ -20,7 +20,7 @@
 <br />
 
 
-**To launch only SLAM Toolbox:**
+**To launch only SLAM Toolbox**
 
 >In Sim
     

@@ -1,4 +1,13 @@
-**Initial run**
+# Icarus 🪽
+
+If you're new here, heck out my parent repo  [Icaurus Pi](https://github.com/steelgit/icarus_pi/tree/daedalus_main)  for more information on the project! 
+
+This repository contains information on how to add SLAM and Nav2 to your robot to enable autonomous navigation capabilities. 
+
+<br />
+<br />
+
+# Initial run
 
     sudo apt install ros-foxy-slam-toolbox ros-foxy-navigation2 ros-foxy-nav2-bringup
 
@@ -7,12 +16,12 @@
 <br />
 <br />
 
-**To run Perception Stack in Sim**
+# To run Perception Stack in Simulation
     
     ros2 launch autonomy autonomy_sim_launch.py
 
 
-**To run Perception Stack on Robot**
+# To run Perception Stack on Robot
 
     ros2 launch autonomy autonomy_launch.py
 
@@ -20,7 +29,7 @@
 <br />
 
 
-**To launch only SLAM Toolbox**
+# To launch only SLAM Toolbox
 
 >In Sim
     
@@ -34,7 +43,7 @@
 <br />
 
 
-**To launch only Nav2**
+# To launch only Nav2
 
 >In Sim
 
@@ -48,6 +57,6 @@
 <br />
 
 
-**To launch only the Physical LiDAR**
+# To launch only the Physical LiDAR
     
     ros2 launch rplidar_ros rplidar_a1_launch.py

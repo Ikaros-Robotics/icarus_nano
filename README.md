@@ -7,7 +7,7 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 <br />
 
-# Initial run
+## Initial run
 
     sudo apt install ros-foxy-slam-toolbox ros-foxy-navigation2 ros-foxy-nav2-bringup
 
@@ -16,12 +16,12 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 <br />
 
-# To run Perception Stack in Simulation
+## To run Perception Stack in Simulation
     
     ros2 launch autonomy autonomy_sim_launch.py
 
 
-# To run Perception Stack on Robot
+## To run Perception Stack on Robot
 
     ros2 launch autonomy autonomy_launch.py
 
@@ -29,7 +29,7 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 
 
-# To launch only SLAM Toolbox
+## To launch only SLAM Toolbox
 
 >In Sim
     
@@ -43,7 +43,7 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 
 
-# To launch only Nav2
+## To launch only Nav2
 
 >In Sim
 
@@ -57,6 +57,6 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 
 
-# To launch only the Physical LiDAR
+## To launch only the Physical LiDAR
     
     ros2 launch rplidar_ros rplidar_a1_launch.py

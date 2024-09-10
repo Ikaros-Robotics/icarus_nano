@@ -13,8 +13,7 @@ class ImagePublisher(Node):
     timer_period = 0.02
     self.timer = self.create_timer(timer_period, self.timer_callback)
     #Uncomment when on Nano
-    #self.cap = cv2.VideoCapture("nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)NV12, framerate=(fraction)30/1 ! nvvidconv ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
-    self.cap = cv2.VideoCapture("v4l2-ctl --set-fmt-video=width=1920,height=1080,pixelformat=RG10 --set-ctrl bypass_mode=0 --stream-mmap")
+    self.cap = cv2.VideoCapture("nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)NV12, framerate=(fraction)30/1 ! nvvidconv ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
 
     #Uncomment when on other devices
     #self.cap = cv2.VideoCapture(0)
@@ -27,7 +26,7 @@ class ImagePublisher(Node):
       msg = self.br.cv2_to_imgmsg(frame, encoding="rgb8")
       msg.header.frame_id = ("camera_link_optical")
       self.publisher_.publish(msg)
-      self.get_logger().info('Publishing video frame')
+      #self.get_logger().info('Publishing video frame')
     else:
       self.get_logger().info('failed video frame')
    

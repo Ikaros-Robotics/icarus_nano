@@ -14,9 +14,10 @@ class ImagePublisher(Node):
     self.timer = self.create_timer(timer_period, self.timer_callback)
     #Uncomment when on Nano
     #self.cap = cv2.VideoCapture("nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)NV12, framerate=(fraction)30/1 ! nvvidconv ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
-    
+    self.cap = cv2.VideoCapture("v4l2-ctl --set-fmt-video=width=1920,height=1080,pixelformat=RG10 --set-ctrl bypass_mode=0 --stream-mmap")
+
     #Uncomment when on other devices
-    self.cap = cv2.VideoCapture(0)
+    #self.cap = cv2.VideoCapture(0)
 
     self.br = CvBridge()
     

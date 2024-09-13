@@ -4,7 +4,7 @@ If you're new here, check out the [README in my parent repo](https://github.com/
 
 This repository contains information on how to add SLAM and Nav2 to your robot to enable autonomous navigation capabilities. 
 
-embed video again
+❗embed video again
 
 <br />
 <br />
@@ -33,7 +33,7 @@ embed video again
 
 ## To launch only SLAM Toolbox
 
-embed pic of slam toolbox
+❗embed pic of slam toolbox
 
 >In Sim
     
@@ -49,7 +49,7 @@ embed pic of slam toolbox
 
 ## To launch only Nav2
 
-embed pic of Nav2 w/ goal pose being set
+❗embed pic of Nav2 w/ goal pose being set
 
 >In Sim
 
@@ -65,7 +65,7 @@ embed pic of Nav2 w/ goal pose being set
 
 ## To launch only the Physical LiDAR
 
-embed pic of laser scan topic
+❗embed pic of laser scan topic
     
     ros2 launch rplidar_ros rplidar_a1_launch.py
 

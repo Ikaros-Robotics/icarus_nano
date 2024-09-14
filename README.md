@@ -1,10 +1,10 @@
 # Icarus 🪽
 
-If you're new here, check out the [README in my parent repo](https://github.com/steelgit/icarus_pi/tree/daedalus_main) for more information on the project! 
+If you're new here, check out the [README](https://github.com/steelgit/icarus_pi/tree/master) in my parent repo for more information on the project! 
 
 This repository contains information on how to add SLAM and Nav2 to your robot to enable autonomous navigation capabilities. 
 
-❗embed video again
+![Icarus Video](https://github.com/steelgit/icarus_pi/blob/master/docs/Icarus_Video.gif "Video of Icarus Operating Autonomously")
 
 <br />
 <br />

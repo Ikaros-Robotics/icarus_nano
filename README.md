@@ -2,7 +2,7 @@
 
 If you're new here, check out the [README](https://github.com/steelgit/icarus_pi/tree/master) in my parent repo for more information on the project! 
 
-This repository contains information on how to add SLAM and Nav2 to your robot to enable autonomous navigation capabilities. 
+This repository contains the code and information on how to run SLAM and Nav2 on your robot to enable autonomous navigation capabilities. Additionally, we have provided support for adding a Raspberry Pi camera to your robot.
 
 ![Icarus Video](https://github.com/steelgit/icarus_pi/blob/master/docs/Icarus_Video.gif "Video of Icarus Operating Autonomously")
 
@@ -18,12 +18,13 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 <br />
 <br />
 
-## To run Perception Stack in Simulation
-    
+## To run Autonomy Stack
+
+>In Simulation
+
     ros2 launch autonomy autonomy_sim_launch.py
 
-
-## To run Perception Stack on Robot
+>On Robot
 
     ros2 launch autonomy autonomy_launch.py
 
@@ -33,7 +34,7 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 
 ## To launch only SLAM Toolbox
 
-❗embed pic of slam toolbox
+![Icarus SLAM](Pictures/slam_toolbox_map.png "Icarus SLAM Map")
 
 >In Sim
     
@@ -49,7 +50,7 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 
 ## To launch only Nav2
 
-❗embed pic of Nav2 w/ goal pose being set
+![Icarus NAV2](Pictures/nav2_costmap.png "Icarus Nav2 Costmap")
 
 >In Sim
 
@@ -65,9 +66,16 @@ This repository contains information on how to add SLAM and Nav2 to your robot t
 
 ## To launch only the Physical LiDAR
 
-❗embed pic of laser scan topic
+![Icarus LiDAR Laser Scan](Pictures/laser_scan.png "Icarus Laser Scan")
     
     ros2 launch rplidar_ros rplidar_a1_launch.py
+
+<br />
+<br />
+
+## To Launch only the camera
+
+❗@eli
 
 <br />
 <br />

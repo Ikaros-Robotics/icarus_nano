@@ -43,8 +43,8 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
-        #slam_toolbox,
-        #nav2,
-        #lidar,
+        slam_toolbox,
+        nav2,
+        lidar,
         camera_node
     ])

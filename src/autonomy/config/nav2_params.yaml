@@ -26,7 +26,7 @@ amcl:
     recovery_alpha_fast: 0.0
     recovery_alpha_slow: 0.0
     resample_interval: 1
-    robot_model_type: "omnidirectional"
+    robot_model_type: "omnidirectional"   #holonomic parameter, needed for strafing
     save_pose_rate: 0.5
     sigma_hit: 0.2
     tf_broadcast: true
@@ -104,17 +104,17 @@ controller_server:
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.1
-      yaw_goal_tolerance: 0.1
+      xy_goal_tolerance: 0.1          #linear distance the robot has to be from the goal to be considered a success
+      yaw_goal_tolerance: 0.1         #angular distance the robot has to be from the goal to be considered a success
       stateful: True
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: True
-      min_vel_x: 0.0
-      min_vel_y: 0.0
+      min_vel_x: 0.0                #All of the min/max velocity, speed, acceleration, and deceleration parameters should match or exceed your robot's specification
+      min_vel_y: 0.0                #holonomic parameter, needed for strafing
       max_vel_x: 0.4
-      max_vel_y: 0.4
+      max_vel_y: 0.4                #holonomic parameter, needed for strafing
       max_vel_theta: 1.0
       min_speed_xy: 0.0
       max_speed_xy: 0.4
@@ -126,33 +126,35 @@ controller_server:
       decel_lim_y: -2.5
       decel_lim_theta: -3.2
       vx_samples: 20
-      vy_samples: 20
+      vy_samples: 20                #holonomic parameter, needed for strafing
       vtheta_samples: 20
       sim_time: 1.7
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.1
+      xy_goal_tolerance: 0.1       #match to the xy_goal_tolerance parameter in goal_checker parameter
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True
+      #https://docs.nav2.org/configuration/packages/configuring-dwb-controller.html#trajectory-critics
+      #these critics are used by the local planner (DWB) to choose which trajectory is the least costly way to follow the global planner
       critics: ["RotateToGoal", "PreferForward", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist","Twirling"]
-      BaseObstacle.scale: 0.02
-      PathAlign.scale: 32.0
-      PathAlign.forward_point_distance: 0.1
-      GoalAlign.scale: 24.0
-      GoalAlign.forward_point_distance: 0.1
-      PathDist.scale: 32.0
-      GoalDist.scale: 24.0
-      RotateToGoal.xy_goal_tolerance: 0.1
-      RotateToGoal.trans_stopped_velocity: 0.1
-      RotateToGoal.scale: 32.0
-      RotateToGoal.slowing_factor: 5.0
-      RotateToGoal.lookahead_time: -1.0
-      PreferForward.penalty: 0.0
-      PreferForward.strafe_x: 0.9
-      PreferForward.strafe_theta: 50.0
-      Twirling.scale: 0.5
+      BaseObstacle.scale: 0.02                  #scores trajectory based on obstacles defined on the costmap (requires inflation radius on obstacles)
+      PathAlign.scale: 32.0                     #scores a trajectory based on how well it aligns with the global path
+      PathAlign.forward_point_distance: 0.1     #Computes angular change from 0.1 m in front of the robot
+      GoalAlign.scale: 24.0                     #scores trajectory based on how closely aligned it is to the goal pose
+      GoalAlign.forward_point_distance: 0.1     #Computes angular change from 0.1 m in front of robot
+      PathDist.scale: 32.0                      #scores trajectory based on how close its path is to the path given by global planner
+      GoalDist.scale: 24.0                      #scores trajectory based on how close to the goal pose the robot gets
+      RotateToGoal.xy_goal_tolerance: 0.1       #tolerance for goal completion (m)
+      RotateToGoal.trans_stopped_velocity: 0.1  #Below this robot thinks its stopped once it meets goal criteria
+      RotateToGoal.scale: 32.0                  #high scale factor to make the robot always rotate to the given goal pose (if lower, will not always end at correct goal pose) 
+      RotateToGoal.slowing_factor: 5.0          #slows down robot while rotating to final goal pose
+      RotateToGoal.lookahead_time: -1.0         #does not lookahead for possible collision
+      PreferForward.penalty: 0.0                #removes penalty for moving in reverse
+      PreferForward.strafe_x: 0.9               #Adds penalty for strafing after robot exceeds this x velocity (high b/c we want it to always be able to strafe)
+      PreferForward.strafe_theta: 50.0          #Adds penalty for strafing after robot exceeds this angular velocity (high b/c we want it to always be able to strafe)
+      Twirling.scale: 0.5                       # 1.0 = prevents holonomic robot from spinning (less likely to rotate in place), 0.0 = more likely to rotate in place and rotate while moving towards goal
 
 controller_server_rclcpp_node:
   ros__parameters:
@@ -175,7 +177,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        inflation_radius: 0.1
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
@@ -230,7 +232,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.25
+        inflation_radius: 0.1
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:
@@ -284,7 +286,7 @@ recoveries_server:
     transform_timeout: 0.1
     use_sim_time: False
     simulate_ahead_time: 3.0
-    max_rotational_vel: 4.0
+    max_rotational_vel: 4.0   #change max min rotational vels and acceleration limits to match or exceed the capabilities of the robot 
     min_rotational_vel: 0.4
     rotational_acc_lim: 3.2
 

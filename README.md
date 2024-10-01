@@ -75,7 +75,13 @@ This repository contains the code and information on how to run SLAM and Nav2 on
 
 ## To Launch only the camera
 
-❗@eli
+>CAMERA PUBLISHER
+
+    ros2 run camera_publisher cam_pub
+
+>LOCAL CAMERA SUBSCRIBER
+
+    ros2 run camera_publisher cam_sub
 
 <br />
 <br />

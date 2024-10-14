@@ -1,6 +1,6 @@
 # Icarus 🪽
 
-If you're new here, check out the [README](https://github.com/steelgit/icarus_pi/tree/master) in my parent repo for more information on the project! 
+If you're new here, check out the [README](https://github.com/Ikaros-Robotics/icarus_pi) in my parent repo for more information on the project! 
 
 This repository contains the code and information on how to run SLAM and Nav2 on your robot to enable autonomous navigation capabilities. Additionally, we have provided support for adding a Raspberry Pi camera to your robot.
 
